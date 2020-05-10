@@ -16,7 +16,7 @@ public class Basket {
     public int addToBasket(StockItem item, int quantity){
         if((item != null) && (quantity > 0)){
             int inBasket = list.getOrDefault(item,0);
-            list.put(item, inBasket + quantity);
+            this.list.put(item, inBasket + quantity);
             return inBasket;
         }
         return 0;
@@ -47,6 +47,6 @@ public class Basket {
             s = s + item.getKey() + ". " + item.getValue() + " purchased\n";
             totalCost += item.getKey().getPrice() * item.getValue();
         }
-        return s + "Total cost " + totalCost;
+        return s + "Total cost " + String.format("%.2f", totalCost);
     }
 }
