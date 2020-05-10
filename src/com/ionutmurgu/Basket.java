@@ -22,6 +22,19 @@ public class Basket {
         return 0;
     }
 
+    public int removeFromBasket(StockItem item, int quantity){
+        if((item != null) && (quantity > 0)){
+            int inBasket = list.getOrDefault(item,0);
+            list.replace(item, inBasket - quantity);
+            return inBasket;
+        }
+        return 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public Map<StockItem, Integer> Items(){
         return Collections.unmodifiableMap(list);
     }

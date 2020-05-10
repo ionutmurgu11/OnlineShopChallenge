@@ -2,6 +2,8 @@ package com.ionutmurgu;
 
 import org.xml.sax.helpers.AttributesImpl;
 
+import java.util.Map;
+
 public class Main {
     private static StockList stockList = new StockList();
 
@@ -44,22 +46,29 @@ public class Main {
 
 
         Basket ionutBasket = new Basket("Ionut");
-        sellItem(ionutBasket,"cake",1);
+        reserveItem(ionutBasket,"cake",7);
+        unReserveItem(ionutBasket,"cake",3);
+        sellItem(ionutBasket,"cake",7);
         System.out.println(ionutBasket);
 
-        sellItem(ionutBasket,"car",1);
-        System.out.println(ionutBasket);
+//        sellItem(ionutBasket,"cake",1);
+//        System.out.println(ionutBasket);
+//
+//        sellItem(ionutBasket,"car",1);
+//        System.out.println(ionutBasket);
+//
+//        sellItem(ionutBasket,"car",1);
+//        sellItem(ionutBasket,"spanner",5);
+//        System.out.println(ionutBasket);
+//
+//        sellItem(ionutBasket,"juice",4);
+//        sellItem(ionutBasket,"cup",12);
+//        sellItem(ionutBasket,"bread",1);
+//        System.out.println(ionutBasket);
 
-        sellItem(ionutBasket,"car",1);
-        sellItem(ionutBasket,"spanner",5);
-        System.out.println(ionutBasket);
-
-        sellItem(ionutBasket,"juice",4);
-        sellItem(ionutBasket,"cup",12);
-        sellItem(ionutBasket,"bread",1);
-        System.out.println(ionutBasket);
-
+        System.out.println(ionutBasket.Items());
         System.out.println(stockList);
+        //System.out.println(stockList.priceList());
     }
 
     public static int sellItem(Basket basket, String item, int quantity){
@@ -69,9 +78,42 @@ public class Main {
             return 0;
         }
         if(stockList.sellStock(item,quantity) != 0){
+            return quantity;
+        }
+        return 0;
+    }
+
+    public static int reserveItem(Basket basket,String item, int quantity){
+        StockItem stockItem = stockList.get(item);
+        if(stockItem == null){
+            System.out.println("We don't sell " + item);
+            return 0;
+        }
+        if(stockList.reserveStock(item,quantity) >= 0){
             basket.addToBasket(stockItem,quantity);
             return quantity;
         }
         return 0;
     }
+
+    public static int unReserveItem(Basket basket,String item, int quantity){
+        StockItem stockItem = stockList.get(item);
+        if(stockItem == null){
+            System.out.println("We don't sell " + item);
+            return 0;
+        }if (stockList.reserveStock(item,quantity)>=0) {
+            basket.removeFromBasket(stockItem, quantity);
+            return quantity;
+        }
+        return 0;
+    }
+
+//    public static Basket checkOut(Basket basket, boolean option){
+//        if(option){
+//            stockList.sellStock(basket.Items());
+//            basket = new Basket(basket.getName());
+//        }
+//    }
+
+
 }

@@ -25,7 +25,7 @@ public class StockItem implements Comparable<StockItem> {
         return price;
     }
 
-    public int getQuantityInStock() {
+    public int quantityInStock() {
         return quantityStock;
     }
 
@@ -40,6 +40,16 @@ public class StockItem implements Comparable<StockItem> {
         if(newQuantity>=0){
             this.quantityStock = newQuantity;
         }
+    }
+
+    public int reserved(int reservedQuantity){
+        int reserved = this.quantityStock - reservedQuantity;
+        return reserved;
+    }
+
+    public int unReserved(int reservedQuantity){
+        int reserved = this.quantityStock + reservedQuantity;
+        return reserved;
     }
 
     @Override
@@ -64,7 +74,7 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public int compareTo(StockItem o) {
-        System.out.println("Entering StockItem.compareTo");
+        //System.out.println("Entering StockItem.compareTo");
         if(this == o){
             return 0;
         }
